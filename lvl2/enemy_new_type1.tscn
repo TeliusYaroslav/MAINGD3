@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://qucvufihxw0p"]
+
+[ext_resource type="Texture2D" uid="uid://cyg11674ckyp4" path="res://lvl2/enemy_new_type1/photo_2024-03-15_07-55-55-removebg-preview.png" id="1_gfsdn"]
+[ext_resource type="Script" path="res://lvl2/enemy_new_type1.gd" id="1_ryn15"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h3d0g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gfsdn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oq8hx"]
+radius = 18.3848
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_03i2k"]
+size = Vector2(709.664, 95.5625)
+
+[node name="RigidBody2D" type="RigidBody2D"]
+script = ExtResource("1_ryn15")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(96, 51)
+scale = Vector2(0.917911, 0.947368)
+sprite_frames = SubResource("SpriteFrames_h3d0g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(100, 60)
+shape = SubResource("CircleShape2D_oq8hx")
+
+[node name="detection_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+position = Vector2(96, 36)
+shape = SubResource("RectangleShape2D_03i2k")
+
+[connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
